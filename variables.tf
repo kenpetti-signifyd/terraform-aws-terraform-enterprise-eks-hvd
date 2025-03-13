@@ -104,7 +104,7 @@ variable "cidr_allow_ingress_tfe_443" {
 variable "cidr_allow_ingress_tfe_metrics_http" {
   type        = list(string)
   description = "List of CIDR ranges to allow TCP/9090 (TFE HTTP metrics endpoint) inbound to TFE pods."
-  default     = []
+  default     = null
 
   validation {
     condition = var.cidr_allow_ingress_tfe_metrics_http != null ? length(var.cidr_allow_ingress_tfe_metrics_http) > 0 : true
@@ -115,7 +115,7 @@ variable "cidr_allow_ingress_tfe_metrics_http" {
 variable "cidr_allow_ingress_tfe_metrics_https" {
   type        = list(string)
   description = "List of CIDR ranges to allow TCP/9091 (TFE HTTPS metrics endpoint) inbound to TFE pods."
-  default     = []
+  default     = null
 
   validation {
     condition = var.cidr_allow_ingress_tfe_metrics_https != null ? length(var.cidr_allow_ingress_tfe_metrics_https) > 0 : true
