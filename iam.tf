@@ -257,6 +257,29 @@ data "aws_iam_policy_document" "tfe_irsa_assume_role" {
       values   = ["sts.amazonaws.com"]
     }
   }
+
+   statement {
+    sid     = "TfeAgentIrsaAssumeRole"
+    effect  = "Allow"
+    actions = ["sts:AssumeRoleWithWebIdentity"]
+
+    principals {
+      type        = "Federated"
+      identifiers = [local.oidc_provider_arn]
+    }
+
+    condition {
+      test     = "StringEquals"
+      variable = "${replace("${local.oidc_provider_arn}", "/^(.*provider/)/", "")}:sub"
+      values   = ["system:serviceaccount:${var.tfe_agent_kube_namespace}:${var.tfe_agent_kube_svc_account}"]
+    }
+
+    condition {
+      test     = "StringEquals"
+      variable = "${replace("${local.oidc_provider_arn}", "/^(.*provider/)/", "")}:aud"
+      values   = ["sts.amazonaws.com"]
+    }
+  }
 }
 
 data "aws_iam_policy_document" "tfe_irsa_s3" {

@@ -204,6 +204,18 @@ variable "tfe_kube_svc_account" {
   default     = "tfe"
 }
 
+variable "tfe_agent_kube_namespace" {
+  type        = string
+  description = "Name of Kubernetes namespace for TFE agent service account (to be created post Helm chart). Used to configure EKS [IRSA](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html)."
+  default     = "tfe"
+}
+
+variable "tfe_agent_kube_svc_account" {
+  type        = string
+  description = "Name of Kubernetes service account for TFE agent (to be created post Helm chart). Used to configure EKS [IRSA](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html)."
+  default     = "tfe"
+}
+
 variable "create_aws_lb_controller_irsa" {
   type        = bool
   description = "Boolean to create AWS Load Balancer Controller IAM role and policies to enable EKS IAM role for service accounts (IRSA)."
